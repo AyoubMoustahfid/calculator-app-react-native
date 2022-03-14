@@ -35,8 +35,7 @@ export default function App() {
     }
 
     const firstNumberDisplay = () => {
-      console.log("secound number", secoundNumber)
-      console.log('first number', firstNumber)
+
       if(result !== null){
         return <Text style={[tw`text-4xl font-bold`, theme === "light" ? tw`text-black` : tw`text-white`]}>{result?.toString()}</Text>
       }
@@ -79,6 +78,22 @@ export default function App() {
           clear()
           setResult(parseInt(secoundNumber) / parseInt(firstNumber))
           break
+        case "cos":
+          clear()
+          setResult(Math.cos(parseInt(secoundNumber)) * 10)
+          break
+        case "sin":
+          clear()
+          setResult(Math.sin(parseInt(secoundNumber)) * 10)
+          break
+        case "tan":
+          clear()
+          setResult(Math.tan(parseInt(secoundNumber)) * Math.PI / 180)
+          break
+        case "log":
+          clear()
+          setResult(Math.log(parseInt(firstNumber)) / Math.log(parseInt(secoundNumber)))
+          break
         default:
           clear ()
           setResult(0)
@@ -88,29 +103,64 @@ export default function App() {
 
 
   return (
-    <SafeAreaView style={[tw`h-full px-4 flex-col justify-around`, theme === "light" ? tw`bg-white` : tw`bg-black`]}>
-      <View style={tw`flex-row justify-center`}>
-        <Switch
-          value={theme === "dark"}
-          onValueChange={() => setTheme(theme === "light" ? "dark" : "light")}
-        />
-      </View>
-      <View 
-        style={tw` h-2/4 flex-col items-end justify-end mx-3`}
-      >
-        <Text
-          style={[tw`text-2xl`, theme === "light" ? tw`text-black` : tw`text-white`]}
-        >
-          {`${secoundNumber} `}
-          <Text style={tw`text-2xl text-red-400 `}>{operation}</Text>
-          {` ${firstNumber}`}
-        </Text>
-        <View style={tw`my-3`}>
-          {firstNumberDisplay()}
+    <SafeAreaView style={[tw` h-full px-4 flex-col justify-between`, theme === "light" ? tw`bg-white` : tw`bg-black`]}>
+      <View style={tw`h-2/4 flex-col justify-around`}>
+        <View style={tw`flex-row justify-center `}>
+          <Switch
+            value={theme === "dark"}
+            onValueChange={() => setTheme(theme === "light" ? "dark" : "light")}
+          />
         </View>
+
+        <View 
+          style={tw` h-2/4 flex-col items-end justify-end mx-3 `}
+        >
+          <Text
+            style={[tw`text-2xl`, theme === "light" ? tw`text-black` : tw`text-white`]}
+          >
+            {`${secoundNumber} `}
+            <Text style={tw`text-2xl text-red-400 `}>{operation}</Text>
+            {` ${firstNumber}`}
+          </Text>
+          <View style={tw`my-3`}>
+            {firstNumberDisplay()}
+          </View>
+      </View>
       </View>
       
-      <View>
+      <View style={tw`h-2/4 flex-col justify-end`}>
+        {/* **** ROW 0 ****** */}
+        <View style={tw`flex-row justify-around  my-1`}>
+          <Button
+            title="sin"
+            onPress={() => handleOperationPress("sin")}
+            style={[tw` flex-row justify-center items-center py-4 rounded-lg`, {width: "18%"}]}
+            text_style={tw`text-green-400 font-bold text-2xl`}
+          />
+
+          <Button
+            title="cos"
+            onPress={() => handleOperationPress("cos")}
+            style={[tw` flex-row justify-center items-center py-4 rounded-lg`, {width: "18%"}]}
+            text_style={tw`text-green-400 font-bold text-2xl`}
+          />
+
+          <Button
+            title="tan"
+            onPress={() => handleOperationPress("tan")}
+            style={[tw` flex-row justify-center items-center py-4 rounded-lg`, {width: "18%"}]}
+            text_style={tw`text-green-400 font-bold text-2xl`}
+          />
+
+          <Button
+            title="log"
+            onPress={() => handleOperationPress("log")}
+            style={[tw` flex-row justify-center items-center py-4 rounded-lg`, {width: "18%"}]}
+            text_style={tw`text-green-400 font-bold text-2xl`}
+          />
+          
+        </View>
+
         {/* *** ROW 1 ***** */}
         <View style={tw`flex-row justify-around  my-1`}>
           <Button
